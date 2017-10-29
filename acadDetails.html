@@ -1,0 +1,131 @@
+<!-- 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+//    Project name: Aspire
+//    File name: acadDetails.html
+//    Description: This page allows us to enter the academic details of the student. It also has
+//				   a functionality to calculate the GPA. After the student has entered the 
+//				   details, it will display the EPS score and generate the list of universities.
+//                 This file consists of concepts of angularJS, object based javascript and CSS3 
+//                 and bootstrap.
+//    Naming Standard used for variables and functions: Camel case
+//    Submission Date: 04/26/207
+//                 
+//    Author name: Zohra Nadaf
+//    Semester: Spring, 2017
+//    Lecturer's name: Sunae Shin
+//    Subject: Advanced Software Engineering
+//    Course Id: CS 5910
+//    CRN: 22797
+///////////////////////////////////////////////////////////////////////////////////////////////////
+ -->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Aspire Councelling</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon"> 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+  <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-route.min.js"></script>
+  <script type="text/javascript" src="app.js"></script>
+  <script type="text/javascript" src="labels.js"></script>
+  <style type="text/css">
+    h3{
+      color: white;
+    }
+
+    .error{
+      color: red;
+    }
+  </style>
+</head>
+<body ng-app="acadDetailsMainApp">
+	<div ng-controller="AcadDetailsCtrl">
+	  	<nav class="container navbar navbar-inverse">
+		    <div class="navbar-header">
+		    	<h3 id="acadDetailsheader"></h3>
+		    </div>
+		    <ul class="nav navbar-nav navbar-right">
+		    	<li><a href="" data-toggle="modal" data-target="#calcGPA"><span class="glyphicon glyphicon-calculate"></span> Calculate GPA</a></li>
+		    </ul>
+		</nav>
+
+		<!-- academic details form -->
+		<div class="container" style="width: 40%">
+			<h4 id="enterAcadDetailsheader"></h4>
+			<form name="acadDetailsForm" autocomplete="off" ng-submit="calcEPS(acadDetailsForm.$valid)" novalidate>
+		      <div class="form-group">
+		        <label for="gre" id="greLbl"></label><sup style="color: red">*</sup>
+		        <input type="number" class="form-control" ng-maxlength="3" id="gre" name="gre" ng-model="gre" placeholder="Enter GRE score" required/>
+		        <span class="error" ng-show = "acadDetailsForm.gre.$dirty && acadDetailsForm.gre.$invalid">
+		          <span ng-show = "acadDetailsForm.gre.$error.required">Required</span>	
+		        </span>
+		       </div>
+		       <div class="form-group">
+		        <label class="radio-inline"><input type="radio" name="testRadio" ng-model="testRadio" id="toefl">TOEFL</label>
+				<label class="radio-inline"><input type="radio" name="testRadio" ng-model="testRadio" id="ielts">IELTS</label>
+		       </div>
+		      <div class="form-group">
+		        <label for="toeflIelts" id="toeflIeltsLbl"></label><sup style="color: red">*</sup>
+		        <input type="number" class="form-control" id="toeflIelts" name="toeflIelts" ng-model="toeflIelts" placeholder="Enter TOEFL/ IELTS score" required/>
+		        <span class="error" ng-show = "acadDetailsForm.toeflIelts.$dirty && acadDetailsForm.toeflIelts.$invalid">
+		          <span ng-show = "acadDetailsForm.toeflIelts.$error.required">Required</span>
+		        </span>
+		      </div>
+		      <div class="form-group">
+		        <label for="gpa" id="gpaLbl"></label><sup style="color: red">*</sup>
+		        <input type="number" class="form-control" id="gpa" name="gpa" ng-model="gpa" placeholder="Enter GPA" required/>
+		        <span class="error" ng-show = "acadDetailsForm.gpa.$dirty && acadDetailsForm.gpa.$invalid">
+		          <span ng-show = "acadDetailsForm.gpa.$error.required">Required</span><span>{{gpa}}</span>
+		        </span>
+		      </div>
+		      <div class="form-group">
+		        <label for="aoi" id="aoiLbl"></label>
+		        <input type="text" class="form-control" id="aoi" name="aoi" ng-model="aoi" placeholder="Enter area of interest"/>
+		      </div> 
+		      <button type="reset" class="btn btn-info" id="acadDetailsResetBtn"></button>
+		      <button type="submit" class="btn btn-info" id="acadDetailsSubmitBtn" ng-disabled="acadDetailsForm.$invalid"></button>
+          	  <div class="form-group">
+		    	<label id="epsScoreLbl" style="margin-top: 10px;"></label> <label>{{eps}}</label>
+		      </div>
+		      <button type="submit" class="btn btn-info" id="genListOfUnivSubmitBtn" ng-click = "genListOfUniv()" disabled></button><br>
+		      <label id="listOfUnivHeader" style="margin-top: 10px;display: none;"></label>
+		      <div id="listOfUniv"></div>
+          </form>
+		</div>
+
+		<!-- calculate GPA model -->
+		<div class="modal fade" id="calcGPA" role="dialog">
+	      <div class="modal-dialog">
+	        <div class="modal-content">
+		        <div class="modal-body">
+		        	<div class="modal-header">
+			            <button type="button" class="close" data-dismiss="modal">&times;</button>
+			            <h4 class="modal-title" id="calcGPAModalHeader"></h4>
+			        </div>
+			        <form name="calcGPAForm" autocomplete="off" ng-submit="convertToGPA()" novalidate>
+		              	<div class="form-group">
+			                <label for="percentage" id="percentageLbl"></label>
+			                <input type="number" class="form-control" id="percentage" name="percentage" ng-model="percentage" placeholder="Enter the percentage"/>
+		              	</div>
+		              	<div class="modal-footer">
+			              <button type="submit" class="btn btn-info" id="calcGPASubmitBtn"></button>
+			            </div>
+		            </form>
+		        </div>
+	        </div>
+	      </div>
+	    </div>
+	</div>
+</body>
+</html>
+
+<!-- Creating an object of  AspireLabels() to load the labels for the home page-->
+<script>
+    var obj = new AspireLabels();
+    obj.init();
+</script>

@@ -1,0 +1,112 @@
+[
+  [
+    {
+      "name" : "Princeton University",
+      "actCode" : "2588"
+    },
+    {
+      "name" : "Yale University",
+      "actCode" : "0618"
+    },
+    {
+      "name" : "Harvard University",
+      "actCode" : "1845"
+    },
+    {
+      "name" : "Stanford University",
+      "actCode" : "0434"
+    },
+    {
+      "name" : "Massachusetts Institute of Technology",
+      "actCode" : "1858"
+    }
+  ],
+  [
+    {
+      "name" : "Carnegie Mellon University",
+      "actCode" : "3534"
+    },
+    {
+      "name" : "New York University",
+      "actCode" : "2838"
+    },
+    {
+      "name" : "Boston University",
+      "actCode" : "1794"
+    },
+    {
+      "name" : "Northwestern University",
+      "actCode" : "1106"
+    },
+    {
+      "name" : "Pennsylvania State University",
+      "actCode" : "3656"
+    }
+  ],
+  [
+    {
+      "name" : "University of California- Berkeley",
+      "actCode" : "0444"
+    },
+    {
+      "name" : "University of Illinois- Urbana Campaign",
+      "actCode" : "1154"
+    },
+    {
+      "name" : "University of Texas at Austin",
+      "actCode" : "4240"
+    },
+    {
+      "name" : "University of Maryland- College Park",
+      "actCode" : "1746"
+    },
+    {
+      "name" : "University of Minnesota- Minneapolis",
+      "actCode" : "2156"
+    }
+  ],
+  [
+    {
+      "name" : "University of Virginia",
+      "actCode" : "4412"
+    },
+    {
+      "name" : "University of Florida",
+      "actCode" : "0758"
+    },
+    {
+      "name" : "Arizona State University",
+      "actCode" : "0088"
+    },
+    {
+      "name" : "University of Kansas",
+      "actCode" : "1470"
+    },
+    {
+      "name" : "University of Texas at Dallas",
+      "actCode" : "4243"
+    }
+  ],
+  [
+    {
+      "name" : "Wayne State University",
+      "actCode" : "2064"
+    },
+    {
+      "name" : "City University of New York",
+      "actCode" : "2950"
+    },
+    {
+      "name" : "Temple University",
+      "actCode" : "3724"
+    },
+    {
+      "name" : "Kent State University",
+      "actCode" : "3284"
+    },
+    {
+      "name" : "Bowling Green State University",
+      "actCode" : "3240"
+    }
+  ]
+]

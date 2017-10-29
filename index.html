@@ -1,0 +1,198 @@
+<!-- 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+//    Project name: Aspire
+//    File name: index.html
+//    Description: This file is the home page of the application. We access the homepage with 
+//                 the url: localhost:8080/index.html.
+//                 The homepage allows us to sign in, sign up.
+//                 This file consists of concepts of angularJS, object based javascript and CSS3 
+//                 and bootstrap.
+//    Naming Standard used for variables and functions: Camel case
+//    Submission Date: 04/26/207
+//                 
+//    Author name: Zohra Nadaf
+//    Semester: Spring, 2017
+//    Lecturer's name: Sunae Shin
+//    Subject: Advanced Software Engineering
+//    Course Id: CS 5910
+//    CRN: 22797
+///////////////////////////////////////////////////////////////////////////////////////////////////
+ -->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Aspire Councelling</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon"> 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+  <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-route.min.js"></script>
+  <script type="text/javascript" src="app.js"></script>
+  <script type="text/javascript" src="labels.js"></script>
+  <style type="text/css">
+    h3{
+      color: white;
+    }
+
+    .submitted .ng-invalid{
+        border: 1px solid red;
+    }
+
+    .error{
+      color: red;
+    }
+  </style>
+</head>
+<body ng-app="indexMainApp">
+  <div ng-controller="MainCtrl">
+    	<nav class="container navbar navbar-inverse">
+		    <div class="navbar-header">
+		    	<h3 id="header"></h3>
+		    </div>
+    		<ul class="nav navbar-nav navbar-right">
+		      <li><a href="" data-toggle="modal" data-target="#registerModal"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+		      <li><a href="" data-toggle="modal" data-target="#loginModal"><span class="glyphicon glyphicon-log-in"></span> Sign In</a></li>
+		    </ul>
+  	  </nav>
+
+    <!-- login model -->
+    <div ng-controller="LoginCtrl" class="modal fade" id="loginModal" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title" id="loginModalHeader"></h4>
+          </div>
+          <form name="loginForm" autocomplete="off" ng-submit="login(loginForm.$valid)" novalidate>
+            <div class="modal-body">
+              <div class="form-group">
+                <label for="userNameRegistered" id="userNameRegisteredLbl"></label><sup style="color: red">*</sup>
+                <input type="text" class="form-control" ng-minlength="4" ng-maxlength="8" id="userNameRegistered" name="userNameRegistered" ng-model="userNameRegistered" ng-pattern="userNamePattern" placeholder="Enter User Name" required/>
+                <span class="error" ng-show = "loginForm.userNameRegistered.$dirty && loginForm.userNameRegistered.$invalid">
+                  <span ng-show = "loginForm.userNameRegistered.$error.required">Required</span>
+                  <span ng-show = "loginForm.userNameRegistered.$error.minlength">Too short</span>
+                  <span ng-show = "loginForm.userNameRegistered.$error.maxlength">Too long</span>
+                </span>
+              </div>
+              <div class="form-group">
+                <label for="passwordRegistered" id="passwordRegisteredLbl"></label><sup style="color: red">*</sup>
+                <input type="password" class="form-control" ng-minlength="4" ng-maxlength="8" id="passwordRegistered" name="passwordRegistered" ng-model="passwordRegistered" ng-pattern="passwordPattern" placeholder="Enter Password" required/>
+                <span class="error" ng-show = "loginForm.passwordRegistered.$dirty && loginForm.passwordRegistered.$invalid">
+                  <span ng-show = "loginForm.passwordRegistered.$error.required">Required</span>
+                  <span ng-show = "loginForm.passwordRegistered.$error.minlength">Too short</span>
+                  <span ng-show = "loginForm.passwordRegistered.$error.maxlength">Too long</span>
+                </span>
+              </div> 
+            </div>
+            <div class="modal-footer">
+              <button type="reset" class="btn btn-info" id="loginResetBtn"></button>
+              <button type="submit" class="btn btn-info" id="loginSubmitBtn" ng-disabled="loginForm.$invalid"><a href="#login"></a></button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- registration model-->
+    <div ng-controller="RegisterCtrl" class="modal fade" id="registerModal" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title" id="registerModalHeader"></h4>
+          </div>
+            <form name="registerForm" autocomplete="off" ng-submit="register(registerForm.$valid)" novalidate>
+              <div class="form-group">
+                <label for="firstName" id="firstNameLbl"></label><sup style="color: red">*</sup>
+                <input type="text" class="form-control" ng-maxlength="20" id="firstName" name="firstName" ng-model="firstName" ng-pattern="userNamePattern" placeholder="Enter First Name" required/>
+                <span class="error" ng-show = "registerForm.firstName.$dirty && registerForm.firstName.$invalid">
+                  <span ng-show = "registerForm.firstName.$error.required">Required</span>
+                  <span ng-show = "registerForm.firstName.$error.maxlength">Too long</span>
+                </span>
+              </div>
+              <div class="form-group">
+                <label for="lastName" id="lastNameLbl"></label><sup style="color: red">*</sup>
+                <input type="text" class="form-control" ng-maxlength="20" id="lastName" name="lastName" ng-model="lastName" ng-pattern="userNamePattern" placeholder="Enter Last Name" required/>
+                <span class="error" ng-show = "registerForm.lastName.$dirty && registerForm.lastName.$invalid">
+                  <span ng-show = "registerForm.lastName.$error.required">Required</span>
+                  <span ng-show = "registerForm.lastName.$error.maxlength">Too long</span>
+                </span>
+              </div>
+              <div class="form-group">
+                <label for="email" id="emailLbl"></label><sup style="color: red">*</sup>
+                <input type="email" class="form-control" id="email" name="email" ng-model="email" placeholder="Enter email" required/>
+                <span class="error" ng-show = "registerForm.email.$dirty && registerForm.email.$invalid">
+                  <span ng-show = "registerForm.email.$error.required">Required</span>
+                  <span ng-show = "registerForm.email.$error.email">Please enter valid email id</span>
+                </span>
+              </div>
+              <div class="form-group">
+                <label id="genderLbl"></label><sup style="color: red">*</sup>
+                <select class="form-control">
+                  <option ng-repeat="value in gender">{{value}}</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="phoneNo" id="phoneNoLbl"></label><sup style="color: red">*</sup>
+                <input type="number" class="form-control" id="phoneNo" name="phoneNo" ng-model="phoneNo" ng-maxlength="10" placeholder="Enter Phone No" required/>
+                 <span class="error" ng-show = "registerForm.phoneNo.$dirty && registerForm.phoneNo.$invalid">
+                  <span ng-show = "registerForm.phoneNo.$error.required">Required</span>
+                  <span ng-show = "registerForm.phoneNo.$error.maxlength">Too many digits</span>
+                </span>
+              </div>
+              <div class="form-group">
+                <label for="address" id="addressLbl"></label><sup style="color: red">*</sup>
+                <input type="text" class="form-control" id="address" name="address" ng-model="address" placeholder="Enter address" required/>
+                <span class="error" ng-show = "registerForm.address.$dirty && registerForm.address.$invalid">
+                  <span ng-show = "registerForm.address.$error.required">Required</span>
+                </span>
+              </div>      
+              <div class="form-group">
+                <label for="userName" id="userNameLbl"></label><sup style="color: red">*</sup>
+                <input type="text" class="form-control" id="userName" name="userName" ng-model="userName" ng-pattern="userNamePattern" placeholder="Enter User Name" required/>
+                <span class="error" ng-show = "registerForm.userName.$dirty && registerForm.userName.$invalid">
+                  <span ng-show = "registerForm.userName.$error.required">Required</span>
+                  <span ng-show = "registerForm.userName.$error.minlength">Too short</span>
+                  <span ng-show = "registerForm.userName.$error.maxlength">Too long</span>
+                </span>
+              </div>
+              <div class="form-group">
+                <label for="password" id="passwordLbl"></label><sup style="color: red">*</sup>
+                <input type="password" class="form-control" id="password" name="password" ng-model="password" ng-pattern="passwordPattern" placeholder="Enter Password" required/>
+                <span class="error" ng-show = "registerForm.password.$dirty && registerForm.password.$invalid">
+                  <span ng-show = "registerForm.password.$error.required">Required</span>
+                  <span ng-show = "registerForm.password.$error.minlength">Too short</span>
+                  <span ng-show = "registerForm.password.$error.maxlength">Too long</span>
+                </span>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="reset" class="btn btn-info" id="registerResetBtn"></button>
+              <button type="submit" class="btn btn-info" id="registerSubmitBtn" ng-disabled="registerForm.$invalid"></button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <nav class="container navbar navbar-inverse navbar-fixed-bottom">
+    <div class="navbar-header">
+      <h3 id="aboutUs"></h3>
+    </div>
+    <div class="nav navbar-header navbar-right">
+      <h3 id="inquire"></h3>
+    </div>
+  </nav>
+</body>
+</html>
+
+<!-- Creating an object of  AspireLabels() to load the labels for the home page-->
+<script>
+    var obj = new AspireLabels();
+    obj.init();
+</script>
